@@ -31,10 +31,11 @@ dirname = os.path.dirname(__file__)
 def construct_homograph_dictionary():
     f = os.path.join(dirname,'homographs.en')
     homograph2features = dict()
-    for line in codecs.open(f, 'r', 'utf8').read().splitlines():
-        if line.startswith("#"): continue # comment
-        headword, pron1, pron2, pos1 = line.strip().split("|")
-        homograph2features[headword.lower()] = (pron1.split(), pron2.split(), pos1)
+    with codecs.open(f, 'r', 'utf-8') as fp:
+        for line in fp.read().splitlines():
+            if line.startswith("#"): continue # comment
+            headword, pron1, pron2, pos1 = line.strip().split("|")
+            homograph2features[headword.lower()] = (pron1.split(), pron2.split(), pos1)
     return homograph2features
 
 # def segment(text):
